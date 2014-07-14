@@ -133,7 +133,9 @@ angular.module('ngSocket', []).
 
           this.socket.send(typeof data === 'string'?
             data :
-            JSON.stringify(data));
+            JSON.stringify(data, function(key, value) {
+              return key === 'deferred' ? undefined : value;
+            }));
           data.deferred.resolve();
         }
       };
